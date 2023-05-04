@@ -35,7 +35,7 @@ const flightSchema = mongoose.Schema(
             required: false
         },
         seats: {
-            type: String,
+            type: [String],
             required: false
         },
         cheapestPrice: {
