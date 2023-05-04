@@ -5,8 +5,9 @@ const authRoute = require ('./routes/auth.js');
 const usersRoute = require ('./routes/users.js');
 const flightsRoute = require ('./routes/flights.js');
 const seatsRoute = require ('./routes/seats.js');
+const Flight = require ('./models/flightModel.js');
 
-//const Product = require('./modules/productModel');
+
 dotenv.config()
 const app = express()
 
@@ -23,13 +24,16 @@ mongoose.connect(process.env.MONGO)
     });
 
 //middlewares
-app.use('/auth', authRoute);
-app.use('/users', usersRoute);
-app.use('/flights', flightsRoute);
-app.use('/seats', seatsRoute);
 app.use(express.json());
+app.use('/api/auth', authRoute);
+app.use('/api/users', usersRoute);
+app.use('/api/flights', flightsRoute);
+app.use('/api/seats', seatsRoute);
+
 
 app.get('/',  (req, res) => {
     res.send('Hello World')
 })
+
+
 
