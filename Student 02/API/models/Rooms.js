@@ -19,6 +19,10 @@ const RoomSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    boardType:{
+        type: String,
+        enum: ['Full Board', 'Bed and Breakfast']
+    },
     roomNumbers:[{number: Number, unavailableDates: {type: [Date] }}],
 },
 {timestamps:true});
