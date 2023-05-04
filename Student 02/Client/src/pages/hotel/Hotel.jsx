@@ -1,8 +1,6 @@
 import "./hotel.css";
 import Navbar from "../../components/navbar/Navbar";
 import Header from "../../components/header/Header";
-import MailList from "../../components/mailList/MailList";
-import Footer from "../../components/footer/Footer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleArrowLeft,
@@ -48,17 +46,17 @@ const Hotel = () => {
     setOpen(true);
   };
 
-  const handleMove = (direction) => {
-    let newSlideNumber;
+  // const handleMove = (direction) => {
+  //   let newSlideNumber;
 
-    if (direction === "l") {
-      newSlideNumber = slideNumber === 0 ? 5 : slideNumber - 1;
-    } else {
-      newSlideNumber = slideNumber === 5 ? 0 : slideNumber + 1;
-    }
+  //   if (direction === "l") {
+  //     newSlideNumber = slideNumber === 0 ? 5 : slideNumber - 1;
+  //   } else {
+  //     newSlideNumber = slideNumber === 5 ? 0 : slideNumber + 1;
+  //   }
 
-    setSlideNumber(newSlideNumber)
-  };
+  //   setSlideNumber(newSlideNumber)
+  // };
 
   const handleClick=() =>{
     if(user){
@@ -81,33 +79,33 @@ const Hotel = () => {
               className="close"
               onClick={() => setOpen(false)}
             />
-            <FontAwesomeIcon
+            {/* <FontAwesomeIcon
               icon={faCircleArrowLeft}
               className="arrow"
               onClick={() => handleMove("l")}
-            />
-            <div className="sliderWrapper">
+            /> */}
+            {/* <div className="sliderWrapper">
               <img src={data.photos[slideNumber]} alt="" className="sliderImg" />
-            </div>
-            <FontAwesomeIcon
+            </div> */}
+            {/* <FontAwesomeIcon
               icon={faCircleArrowRight}
               className="arrow"
               onClick={() => handleMove("r")}
-            />
+            /> */}
           </div>
         )}
         <div className="hotelWrapper">
-          <button className="bookNow">Reserve or Book Now!</button>
+          
           <h1 className="hotelTitle">{data.name}</h1>
           <div className="hotelAddress">
             <FontAwesomeIcon icon={faLocationDot} />
             <span>{data.address}</span>
           </div>
           <span className="hotelDistance">
-            Excellent location – {data.distance} from center
+            Excellent location – {data.distance} from {data.city}
           </span>
           <span className="hotelPriceHighlight">
-            Book a stay over ${data.CheapestPrice} at this property and get a free airport taxi
+            Book a stay over ${data.CheapestPrice} at this hotel and get a free tour in city
           </span>
           <div className="hotelImages">
             {data.photos?.map((photo, i) => (
@@ -131,18 +129,16 @@ const Hotel = () => {
             <div className="hotelDetailsPrice">
               <h1>Perfect for a {days}-night stay!</h1>
               <span>
-                Located in the real heart of Krakow, this property has an
-                excellent location score of 9.8!
+              Come stay with us and discover the true meaning of hospitality. Our hotel is more than just a place to rest your head
               </span>
               <h2>
                 <b>${days* data.CheapestPrice*options.room}</b> ({days} nights)
               </h2>
-              <button onClick={handleClick}>Reserve or Book Now!</button>
+              <button onClick={handleClick}>Book Yours Now!</button>
             </div>
           </div>
         </div>
-        <MailList />
-        <Footer />
+
       </div>
       )}
       {openModel && <Reserve setOpen = {setOpenModel}/>}
