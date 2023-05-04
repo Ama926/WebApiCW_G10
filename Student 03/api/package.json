@@ -1,0 +1,18 @@
+{
+  "name": "student-03",
+  "version": "1.0.0",
+  "description": "This is Student 03 Main Folder.\r Create sub folders within this for your application such as,\r     API\r     Client (Front End)",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^7.1.0"
+  }
+}
