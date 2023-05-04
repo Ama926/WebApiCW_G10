@@ -48,25 +48,41 @@ router.delete('/:id', async (req, res) => {
 })
 
 //GET
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req, res,next) => {
+    const failed = true
+    const err = new Error()
+   
+    if (failed) {
+        err.status = 404;
+        err.message ="Sorry not found!";
+        return next(err)
+    }
+
     try {
         const { id } = req.params;
         const flight = await Flight.findById(id)
         res.status(200).json(flight);
-    } catch (error) {
+    } catch (err) {
         console.log(error.message);
-        res.status(500).json({ message: error.message })
+        next(err);
     }
 })
 
 //GET ALL
-router.get('/', async (req, res) => {
+router.get('/', async (req, res,next) => {
+
+    const failed = true
+    const err = new Error()
+    err.status = 404;
+    err.message ='Sorry not found!';
+    if (failed) return next(err)
+
     try {
         const flights = await Flight.find({})
         res.status(200).json(flights);
-    } catch (error) {
+    } catch (err) {
         console.log(error.message);
-        res.status(500).json({ message: error.message })
+        next(err);
     }
 })
 
