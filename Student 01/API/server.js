@@ -2,6 +2,7 @@ const express = require('express')
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const authRoute = require ('./routes/auth.js');
 const usersRoute = require ('./routes/users.js');
 const flightsRoute = require ('./routes/flights.js');
@@ -22,6 +23,7 @@ mongoose.connect(process.env.MONGO)
 
 //middlewares
 app.use(express.json());
+app.use(cors())
 app.use(cookieParser())
 app.use('/api/auth', authRoute);
 app.use('/api/users', usersRoute);

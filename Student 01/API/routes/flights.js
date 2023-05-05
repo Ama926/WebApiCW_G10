@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
 });
 
 //UPDATE
-router.put('/:id', async (req, res) => {
+router.put('/find/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const flight = await Flight.findByIdAndUpdate(id, req.body);
@@ -33,7 +33,7 @@ router.put('/:id', async (req, res) => {
 })
 
 //DELETE
-router.delete('/:id', async (req, res) => {
+router.delete('/find/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const flight = await Flight.findByIdAndDelete(id);
@@ -48,7 +48,7 @@ router.delete('/:id', async (req, res) => {
 })
 
 //GET
-router.get('/:id', async (req, res,next) => {
+router.get('/find/:id', async (req, res,next) => {
    
     try {
         const { id } = req.params;
@@ -56,7 +56,7 @@ router.get('/:id', async (req, res,next) => {
 
         res.status(200).json(flight);
     } catch (err) {
-        console.log(error.message);
+        console.log(err.message);
         next(err);
     }
 })
@@ -69,11 +69,37 @@ router.get('/', async (req, res,next) => {
         const flights = await Flight.find({})
         res.status(200).json(flights);
     } catch (err) {
-        console.log(error.message);
+        console.log(err.message);
         next(err);
     }
 })
+router.get('/countByDepartureCity', async (req, res,next) => {
 
+   const cities = req.query.cities.split(",")
+    try {
+        const list = await Promise.all(cities.map(departureCity =>{
+            return Flight.countDocuments({departureCity:departureCity})
+        }))
+        res.status(200).json(list);
+    } catch (err) {
+        console.log(err.message);
+        next(err);
+    }
+})
+router.get('/countByAirline', async (req, res,next) => {
+
+   
+    const airlines = req.query.airlines.split(",")
+    try {
+        const list = await Promise.all(airlines.map(airline =>{
+            return Flight.countDocuments({airline:airline})
+        }))
+        res.status(200).json(list);
+    } catch (err) {
+        console.log(err.message);
+        next(err);
+    }
+})
 // router.get('/',  (req, res) => {
 //     res.send('Hello this is flight')
 // })
