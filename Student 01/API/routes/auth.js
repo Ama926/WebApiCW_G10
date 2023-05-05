@@ -46,18 +46,9 @@ router.post('/login',  async(req, res,next) => {
             return next(err)
         }
 
-        //const token =jwt.sign({id:user._id, isAdmin: user.isAdmin}, process.env.JWT)
-
         const {password,isAdmin, ...otherDetails} = user._doc;
 
-    //     if(req.cookies.user){
-    //         console.log('welcome back' +req.cookies.user);
-    //     }
-    //    else
-    //    {
-    //     res.cookie('user',req.body.username,{maxAge:6000})
-    //     console.log('cookie set now!');
-    //    }
+    
         res.status(200).json({...otherDetails});
     } catch (err) {
         next(err)
