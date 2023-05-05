@@ -1,5 +1,5 @@
 const express = require('express');
-const User = require ('../models/userModel');
+const User = require('../models/userModel');
 const router = express.Router();
 router.use(express.json());
 //const verifyToken = require ('../utils/verifyToken');
@@ -39,13 +39,13 @@ router.delete('/:id', async (req, res) => {
 })
 
 //GET
-router.get('/:id', async (req, res,next) => {
+router.get('/:id', async (req, res, next) => {
     const failed = true
     const err = new Error()
-   
+
     if (failed) {
         err.status = 404;
-        err.message ="Sorry not found!";
+        err.message = "Sorry not found!";
         return next(err)
     }
 
@@ -60,12 +60,12 @@ router.get('/:id', async (req, res,next) => {
 })
 
 //GET ALL
-router.get('/', async (req, res,next) => {
+router.get('/', async (req, res, next) => {
 
     const failed = true
     const err = new Error()
     err.status = 404;
-    err.message ='Sorry not found!';
+    err.message = 'Sorry not found!';
     if (failed) return next(err)
 
     try {

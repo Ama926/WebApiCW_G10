@@ -1,8 +1,8 @@
-import "./hotel.css";
+import "./flight.css";
 import Navbar from "../../components/navbar/Navbar";
 import Header from "../../components/header/Header";
 import MailList from "../../components/mailList/MailList";
-import Footer from "../../components/footer/Footer";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCircleArrowLeft,
@@ -12,7 +12,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 
-const Hotel = () => {
+const Flight = () => {
   const [slideNumber, setSlideNumber] = useState(0);
   const [open, setOpen] = useState(false);
 
@@ -58,7 +58,7 @@ const Hotel = () => {
     <div>
       <Navbar />
       <Header type="list" />
-      <div className="hotelContainer">
+      <div className="flightContainer">
         {open && (
           <div className="slider">
             <FontAwesomeIcon
@@ -81,35 +81,35 @@ const Hotel = () => {
             />
           </div>
         )}
-        <div className="hotelWrapper">
+        <div className="flightWrapper">
           <button className="bookNow">Reserve or Book Now!</button>
-          <h1 className="hotelTitle">Tower Street Apartments</h1>
-          <div className="hotelAddress">
+          <h1 className="flightTitle">Tower Street Apartments</h1>
+          <div className="flightAddress">
             <FontAwesomeIcon icon={faLocationDot} />
             <span>Elton St 125 New york</span>
           </div>
-          <span className="hotelDistance">
+          <span className="flightDistance">
             Excellent location – 500m from center
           </span>
-          <span className="hotelPriceHighlight">
+          <span className="flightPriceHighlight">
             Book a stay over $114 at this property and get a free airport taxi
           </span>
-          <div className="hotelImages">
+          <div className="flightImages">
             {photos.map((photo, i) => (
-              <div className="hotelImgWrapper" key={i}>
+              <div className="flightImgWrapper" key={i}>
                 <img
                   onClick={() => handleOpen(i)}
                   src={photo.src}
                   alt=""
-                  className="hotelImg"
+                  className="flightImg"
                 />
               </div>
             ))}
           </div>
-          <div className="hotelDetails">
-            <div className="hotelDetailsTexts">
-              <h1 className="hotelTitle">Stay in the heart of City</h1>
-              <p className="hotelDesc">
+          <div className="flightDetails">
+            <div className="flightDetailsTexts">
+              <h1 className="flightTitle">Stay in the heart of City</h1>
+              <p className="flightDesc">
                 Located a 5-minute walk from St. Florian's Gate in Krakow, Tower
                 Street Apartments has accommodations with air conditioning and
                 free WiFi. The units come with hardwood floors and feature a
@@ -123,7 +123,7 @@ const Hotel = () => {
                 airport shuttle service.
               </p>
             </div>
-            <div className="hotelDetailsPrice">
+            <div className="flightDetailsPrice">
               <h1>Perfect for a 9-night stay!</h1>
               <span>
                 Located in the real heart of Krakow, this property has an
@@ -137,10 +137,10 @@ const Hotel = () => {
           </div>
         </div>
         <MailList />
-        <Footer />
+        
       </div>
     </div>
   );
 };
 
-export default Hotel;
+export default Flight;

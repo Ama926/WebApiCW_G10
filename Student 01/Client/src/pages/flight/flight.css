@@ -1,11 +1,11 @@
-.hotelContainer {
+.flightContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 20px;
 }
 
-.hotelWrapper {
+.flightWrapper {
   width: 100%;
   max-width: 1024px;
   display: flex;
@@ -27,60 +27,60 @@
   cursor: pointer;
 }
 
-.hotelTitle {
+.flightTitle {
   font-size: 24px;
 }
 
-.hotelAddress {
+.flightAddress {
   font-size: 12px;
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.hotelDistance {
+.flightDistance {
   color: #0071c2;
   font-weight: 500;
 }
 
-.hotelPriceHighlight {
+.flightPriceHighlight {
   color: #008009;
   font-weight: 500;
 }
 
-.hotelImages {
+.flightImages {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
-.hotelImgWrapper {
+.flightImgWrapper {
   width: 33%;
 }
 
-.hotelImg {
+.flightImg {
   width: 100%;
   object-fit: cover;
   cursor: pointer;
 }
 
-.hotelDetails {
+.flightDetails {
   display: flex;
   justify-content: space-between;
   gap: 20px;
   margin-top: 20px;
 }
 
-.hotelDetailsTexts {
+.flightDetailsTexts {
   flex: 3;
 }
 
-.hotelDesc {
+.flightDesc {
   font-size: 14px;
   margin-top: 20px;
 }
 
-.hotelDetailsPrice {
+.flightDetailsPrice {
   flex: 1;
   background-color: #ebf3ff;
   padding: 20px;
@@ -89,17 +89,17 @@
   gap: 20px;
 }
 
-.hotelDetailsPrice > h1 {
+.flightDetailsPrice > h1 {
   font-size: 18px;
   color: #555;
 }
-.hotelDetailsPrice > span {
+.flightDetailsPrice > span {
   font-size: 14px;
 }
-.hotelDetailsPrice > h2 {
+.flightDetailsPrice > h2 {
   font-weight: 300;
 }
-.hotelDetailsPrice > button {
+.flightDetailsPrice > button {
   border: none;
   padding: 10px 20px;
   background-color: #0071c2;

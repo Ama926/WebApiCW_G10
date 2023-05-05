@@ -1,5 +1,5 @@
 const express = require('express');
-const Flight = require ('../models/flightModel');
+const Flight = require('../models/flightModel');
 const router = express.Router();
 router.use(express.json());
 
@@ -47,9 +47,9 @@ router.delete('/find/:id', async (req, res) => {
     }
 })
 
-//GET
-router.get('/find/:id', async (req, res,next) => {
-   
+//GET by id
+router.get('/find/:id', async (req, res, next) => {
+
     try {
         const { id } = req.params;
         const flight = await Flight.findById(id)
@@ -61,47 +61,54 @@ router.get('/find/:id', async (req, res,next) => {
     }
 })
 
-//GET ALL
-router.get('/', async (req, res,next) => {
+//get count by departure city
+router.get('/countByDepartureCity', async (req, res, next) => {
 
-   
+    const cities = req.query.cities.split(",")
     try {
-        const flights = await Flight.find({})
+        const list = await Promise.all(cities.map(departureCity => {
+            return Flight.countDocuments({ departureCity: departureCity })
+        }))
+        res.status(200).json(list);
+    } catch (err) {
+        console.log(err.message);
+        next(err);
+    }
+})
+//get count by airline type
+router.get('/countByAirline', async (req, res, next) => {
+
+    try {
+        const srilankanCount = await Flight.countDocuments({ airline: "srilankan" });
+        const qatarCount = await Flight.countDocuments({ airline: "qatar" });
+        const emiratesCount = await Flight.countDocuments({ airline: "emirates" });
+
+
+
+        res.status(200).json([
+            { airline: "srilankan", count: srilankanCount },
+            { airline: "qatar", count: qatarCount },
+            { airline: "emirates", count: emiratesCount },
+        ]);
+    } catch (err) {
+        console.log(err.message);
+        next(err);
+    }
+})
+
+
+router.get('/', async (req, res, next) => {
+
+    const { min, max, ...others } = req.query
+    try {
+        const flights = await Flight.find({ ...others, cheapestPrice: { $gt: min | 10000, $lt: max || 80000 }, });
         res.status(200).json(flights);
     } catch (err) {
         console.log(err.message);
         next(err);
     }
 })
-router.get('/countByDepartureCity', async (req, res,next) => {
 
-   const cities = req.query.cities.split(",")
-    try {
-        const list = await Promise.all(cities.map(departureCity =>{
-            return Flight.countDocuments({departureCity:departureCity})
-        }))
-        res.status(200).json(list);
-    } catch (err) {
-        console.log(err.message);
-        next(err);
-    }
-})
-router.get('/countByAirline', async (req, res,next) => {
 
-   
-    const airlines = req.query.airlines.split(",")
-    try {
-        const list = await Promise.all(airlines.map(airline =>{
-            return Flight.countDocuments({airline:airline})
-        }))
-        res.status(200).json(list);
-    } catch (err) {
-        console.log(err.message);
-        next(err);
-    }
-})
-// router.get('/',  (req, res) => {
-//     res.send('Hello this is flight')
-// })
 
 module.exports = router;

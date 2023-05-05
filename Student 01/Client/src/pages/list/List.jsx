@@ -1,4 +1,5 @@
 import "./list.css";
+import useFetch from "../../hooks/useFetch";
 import Navbar from "../../components/navbar/Navbar";
 import Header from "../../components/header/Header";
 import { useLocation } from "react-router-dom";
@@ -6,13 +7,21 @@ import { useState } from "react";
 import { format } from "date-fns";
 import { DateRange } from "react-date-range";
 import SearchItem from "../../components/searchItem/SearchItem";
+import { useNavigate } from "react-router-dom";
 
 const List = () => {
   const location = useLocation();
   const [destination, setDestination] = useState(location.state.destination);
+  const [departure, setDeparture] = useState(location.state.departure);
+  const [seatCount, setseatCount] = useState(location.state.seatCount);
   const [date, setDate] = useState(location.state.date);
   const [openDate, setOpenDate] = useState(false);
-  const [options, setOptions] = useState(location.state.options);
+  const navigate = useNavigate();
+  const handleSearch = () => {
+    navigate("/flight", { state: { departure, destination} }); };
+
+  const {data,loading,error,refetch} = useFetch(`http://localhost:8000/api/flights?arrivalCity=${destination}&departureCity=${departure}`);
+
 
   return (
     <div>
@@ -23,15 +32,27 @@ const List = () => {
           <div className="listSearch">
             <h1 className="lsTitle">Search</h1>
             <div className="lsItem">
-              <label>Destination</label>
+              <label>Departure</label>
+              <input placeholder={departure} type="text" />
+            </div>
+            <div className="lsItem">
+              <label>Arrival</label>
               <input placeholder={destination} type="text" />
             </div>
             <div className="lsItem">
-              <label>Check-in Date</label>
+              <label>Airline</label>
+              <input placeholder="airline" type="text" />
+            </div>
+            <div className="lsItem">
+              <label>Cabin Class</label>
+              <input placeholder="cabin class" type="text" />
+            </div>
+            <div className="lsItem">
+              <label>Departure Date</label>
               <span onClick={() => setOpenDate(!openDate)}>{`${format(
                 date[0].startDate,
                 "MM/dd/yyyy"
-              )} to ${format(date[0].endDate, "MM/dd/yyyy")}`}</span>
+              )} `}</span>
               {openDate && (
                 <DateRange
                   onChange={(item) => setDate([item.selection])}
@@ -41,61 +62,36 @@ const List = () => {
               )}
             </div>
             <div className="lsItem">
-              <label>Options</label>
+              
               <div className="lsOptions">
                 <div className="lsOptionItem">
                   <span className="lsOptionText">
-                    Min price <small>per night</small>
+                    Min price 
                   </span>
                   <input type="number" className="lsOptionInput" />
                 </div>
+                
+                
                 <div className="lsOptionItem">
-                  <span className="lsOptionText">
-                    Max price <small>per night</small>
-                  </span>
-                  <input type="number" className="lsOptionInput" />
-                </div>
-                <div className="lsOptionItem">
-                  <span className="lsOptionText">Adult</span>
+                  <span className="lsOptionText">Seats</span>
                   <input
                     type="number"
                     min={1}
                     className="lsOptionInput"
-                    placeholder={options.adult}
-                  />
-                </div>
-                <div className="lsOptionItem">
-                  <span className="lsOptionText">Children</span>
-                  <input
-                    type="number"
-                    min={0}
-                    className="lsOptionInput"
-                    placeholder={options.children}
-                  />
-                </div>
-                <div className="lsOptionItem">
-                  <span className="lsOptionText">Room</span>
-                  <input
-                    type="number"
-                    min={1}
-                    className="lsOptionInput"
-                    placeholder={options.room}
+                    placeholder={seatCount}
                   />
                 </div>
               </div>
             </div>
-            <button>Search</button>
+            <button onClick={handleSearch}>Search</button>
           </div>
           <div className="listResult">
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
-            <SearchItem />
+            {loading ? "loading" : <>
+            {data.map(item=>(
+              <SearchItem item={item} key={item.id}/>
+            ))}
+            </>}
+            
           </div>
         </div>
       </div>
