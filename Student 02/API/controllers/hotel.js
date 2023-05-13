@@ -2,13 +2,13 @@ import Hotel from "../models/Hotel.js";
 import Rooms from "../models/Rooms.js";
 
 //create
-export const createHotel = async (req, res, next)=>{
+export const createHotel = async (req, res, next) => {
     const newHotel = new Hotel(req.body);
 
-    try{
+    try {
         const saveHotel = await newHotel.save()
         res.status(200).json(saveHotel)
-    }catch(err){
+    } catch (err) {
         //res.status(500).json(err)
         next(err)
     }
@@ -18,11 +18,11 @@ export const createHotel = async (req, res, next)=>{
 
 
 //get
-export const getHotel = async (req, res, next)=>{
-    try{
+export const getHotel = async (req, res, next) => {
+    try {
         const hotel = await Hotel.findById(req.params.id)
         res.status(200).json(hotel)
-    }catch(err){
+    } catch (err) {
         //res.status(500).json(err)
         next(err)
     }
@@ -30,30 +30,45 @@ export const getHotel = async (req, res, next)=>{
 };
 
 //get all
-export const getAllHotel = async (req, res, next)=>{
-    const {min, max, ...others} = req.query;
-    try{
-        const hotels = await Hotel.find
-        ({...others,
-            CheapestPrice: { $gt: min || 1, $lt: max || 999},
-        }).limit(req.query.limit);
+export const getAllHotel = async (req, res, next) => {
+    const { min, max, rating, ...others } = req.query;
+    try {
+        console.log(rating)
+        if (rating == -1) {
+            
+            const hotels = await Hotel.find
+                ({
+                    ...others,
+                    CheapestPrice: { $gt: min || 1, $lt: max || 999 },
+
+                }).limit(req.query.limit);
+            res.status(200).json(hotels)
+        }else {
+            const hotels = await Hotel.find
+            ({
+                ...others,
+                CheapestPrice: { $gt: min || 1, $lt: max || 999 },
+                rating: rating
+
+            }).limit(req.query.limit);
         res.status(200).json(hotels)
-    }catch(err){
+        }
+    } catch (err) {
         //res.status(500).json(err)
         next(err)
     }
 
 };
 
-export const countByCity = async (req, res, next)=>{
+export const countByCity = async (req, res, next) => {
     const cities = req.query.cities.split(",")
-    try{
-        const list = await Promise.all(cities.map(city=>{
-            return Hotel.countDocuments({city:city})
+    try {
+        const list = await Promise.all(cities.map(city => {
+            return Hotel.countDocuments({ city: city })
         }))
-        
+
         res.status(200).json(list)
-    }catch(err){
+    } catch (err) {
         //res.status(500).json(err)
         next(err)
     }
@@ -63,14 +78,14 @@ export const countByCity = async (req, res, next)=>{
 
 export const getHotelRooms = async (req, res, next) => {
     try {
-      const hotel = await Hotel.findById(req.params.id);
-      const list = await Promise.all(
-        hotel.rooms.map((room) => {
-          return Rooms.findById(room);
-        })
-      );
-      res.status(200).json(list)
+        const hotel = await Hotel.findById(req.params.id);
+        const list = await Promise.all(
+            hotel.rooms.map((room) => {
+                return Rooms.findById(room);
+            })
+        );
+        res.status(200).json(list)
     } catch (err) {
-      next(err);
+        next(err);
     }
-  };
+};
