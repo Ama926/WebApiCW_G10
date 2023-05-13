@@ -13,7 +13,7 @@ const Navbar = () => {
         <Link to ="/" style={{ color: "inherit", textDecoration: "none" }}>
         <span className="logo">Holiday Central</span>
         </Link>
-        
+        {user ? user.username : "Welcome"}
       </div>
     </div>
   )

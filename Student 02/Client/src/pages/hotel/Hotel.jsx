@@ -46,23 +46,14 @@ const Hotel = () => {
     setOpen(true);
   };
 
-  // const handleMove = (direction) => {
-  //   let newSlideNumber;
-
-  //   if (direction === "l") {
-  //     newSlideNumber = slideNumber === 0 ? 5 : slideNumber - 1;
-  //   } else {
-  //     newSlideNumber = slideNumber === 5 ? 0 : slideNumber + 1;
-  //   }
-
-  //   setSlideNumber(newSlideNumber)
-  // };
 
   const handleClick=() =>{
     if(user){
-        {setOpenModel(true)}
+      {setOpenModel(true)}
+      // navigate("/login")
     }else{
-      navigate("/login")
+      //navigate("/login")
+      {setOpenModel(true)}
     }
   }
 
@@ -79,19 +70,6 @@ const Hotel = () => {
               className="close"
               onClick={() => setOpen(false)}
             />
-            {/* <FontAwesomeIcon
-              icon={faCircleArrowLeft}
-              className="arrow"
-              onClick={() => handleMove("l")}
-            /> */}
-            {/* <div className="sliderWrapper">
-              <img src={data.photos[slideNumber]} alt="" className="sliderImg" />
-            </div> */}
-            {/* <FontAwesomeIcon
-              icon={faCircleArrowRight}
-              className="arrow"
-              onClick={() => handleMove("r")}
-            /> */}
           </div>
         )}
         <div className="hotelWrapper">
@@ -141,7 +119,7 @@ const Hotel = () => {
 
       </div>
       )}
-      {openModel && <Reserve setOpen = {setOpenModel}/>}
+      {openModel && <Reserve setOpen = {setOpenModel} hotelId={id}/>}
     </div>
   );
 };

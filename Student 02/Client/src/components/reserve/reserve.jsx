@@ -84,6 +84,7 @@ const Reserve = ({ setOpen, hotelId }) => {
               </div>
               <div className="rPrice">{item.price}</div>
             </div>
+            
             <div className="rSelectRooms">
               {item.roomNumbers.map((roomNumber) => (
                 <div className="room">
@@ -94,9 +95,11 @@ const Reserve = ({ setOpen, hotelId }) => {
                     onChange={handleSelect}
                     disabled={!isAvailable(roomNumber)}
                   />
+                  
                 </div>
               ))}
             </div>
+            
           </div>
         ))}
         <button onClick={handleClick} className="rButton">
