@@ -1,6 +1,4 @@
 import Featured from "../../components/featured/Featured";
-
-
 import Header from "../../components/header/Header";
 import MailList from "../../components/mailList/MailList";
 import Navbar from "../../components/navbar/Navbar";

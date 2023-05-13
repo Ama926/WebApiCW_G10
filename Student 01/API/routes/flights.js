@@ -101,7 +101,7 @@ router.get('/', async (req, res, next) => {
 
     const { min, max, ...others } = req.query
     try {
-        const flights = await Flight.find({ ...others, cheapestPrice: { $gt: min | 10000, $lt: max || 80000 }, });
+        const flights = await Flight.find({ ...others, cheapestPrice: { $gt: min | 1000, $lt: max || 100000 }, });
         res.status(200).json(flights);
     } catch (err) {
         console.log(err.message);
@@ -109,6 +109,35 @@ router.get('/', async (req, res, next) => {
     }
 })
 
+// //get all
+// export const getAllHotel = async (req, res, next) => {
+//     const { min, max, rating, ...others } = req.query;
+//     try {
+//         console.log(rating)
+//         if (rating == -1) {
+            
+//             const hotels = await Hotel.find
+//                 ({
+//                     ...others,
+//                     CheapestPrice: { $gt: min || 1, $lt: max || 999 },
 
+//                 }).limit(req.query.limit);
+//             res.status(200).json(hotels)
+//         }else {
+//             const hotels = await Hotel.find
+//             ({
+//                 ...others,
+//                 CheapestPrice: { $gt: min || 1, $lt: max || 999 },
+//                 rating: rating
+
+//             }).limit(req.query.limit);
+//         res.status(200).json(hotels)
+//         }
+//     } catch (err) {
+//         //res.status(500).json(err)
+//         next(err)
+//     }
+
+// };
 
 module.exports = router;

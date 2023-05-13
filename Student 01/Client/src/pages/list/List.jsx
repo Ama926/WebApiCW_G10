@@ -9,21 +9,29 @@ import { DateRange } from "react-date-range";
 import SearchItem from "../../components/searchItem/SearchItem";
 import { useNavigate } from "react-router-dom";
 
-const List = () => {
+const List = ({type}) => {
   const location = useLocation();
   const [destination, setDestination] = useState(location.state.destination);
   const [departure, setDeparture] = useState(location.state.departure);
   const [seatCount, setseatCount] = useState(location.state.seatCount);
+  const [min, setMin] = useState(undefined);
+  const [max, setMax] = useState(undefined);
+  
   const [date, setDate] = useState(location.state.date);
   const [openDate, setOpenDate] = useState(false);
   const navigate = useNavigate();
+
   const handleSearch = () => {
-    navigate("/flight", { state: { departure, destination } });
+    navigate("/flight", { state: { departure, destination, seatCount, max } });
   };
 
-  const { data, loading, error, refetch } = useFetch(`http://localhost:8000/api/flights?arrivalCity=${destination}&departureCity=${departure}`);
-
-
+  const { data, loading, refetch } = useFetch(`http://localhost:8000/api/flights?arrivalCity=${destination}&departureCity=${departure}`);
+  const {  error, reFetch } = useFetch(
+    `http://localhost:8000/api/flight?arrivalCity=${destination}&min=${min || 0 }&max=${max}`
+  );
+  const handleClick = () => {
+    reFetch();
+  };
   return (
     <div>
       <Navbar />
@@ -63,13 +71,17 @@ const List = () => {
               )}
             </div>
             <div className="lsItem">
-
+            
+           
               <div className="lsOptions">
                 <div className="lsOptionItem">
                   <span className="lsOptionText">
-                    Min price
+                    Max price
                   </span>
-                  <input type="number" className="lsOptionInput" />
+                  <input type="number"
+                   className="lsOptionInput"
+                  placeholder=""
+                  onChange={(e) => setMax(e.target.value)} />
                 </div>
 
 
@@ -80,11 +92,12 @@ const List = () => {
                     min={1}
                     className="lsOptionInput"
                     placeholder={seatCount}
+                    onChange={(e) => setseatCount(e.target.value)}
                   />
                 </div>
               </div>
             </div>
-            <button onClick={handleSearch}>Search</button>
+            <button onClick={handleClick}>Search</button>
           </div>
           <div className="listResult">
             {loading ? "loading" : <>
