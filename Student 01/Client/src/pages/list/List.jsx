@@ -18,9 +18,10 @@ const List = () => {
   const [openDate, setOpenDate] = useState(false);
   const navigate = useNavigate();
   const handleSearch = () => {
-    navigate("/flight", { state: { departure, destination} }); };
+    navigate("/flight", { state: { departure, destination } });
+  };
 
-  const {data,loading,error,refetch} = useFetch(`http://localhost:8000/api/flights?arrivalCity=${destination}&departureCity=${departure}`);
+  const { data, loading, error, refetch } = useFetch(`http://localhost:8000/api/flights?arrivalCity=${destination}&departureCity=${departure}`);
 
 
   return (
@@ -62,16 +63,16 @@ const List = () => {
               )}
             </div>
             <div className="lsItem">
-              
+
               <div className="lsOptions">
                 <div className="lsOptionItem">
                   <span className="lsOptionText">
-                    Min price 
+                    Min price
                   </span>
                   <input type="number" className="lsOptionInput" />
                 </div>
-                
-                
+
+
                 <div className="lsOptionItem">
                   <span className="lsOptionText">Seats</span>
                   <input
@@ -87,11 +88,11 @@ const List = () => {
           </div>
           <div className="listResult">
             {loading ? "loading" : <>
-            {data.map(item=>(
-              <SearchItem item={item} key={item.id}/>
-            ))}
+              {data.map(item => (
+                <SearchItem item={item} key={item.id} />
+              ))}
             </>}
-            
+
           </div>
         </div>
       </div>

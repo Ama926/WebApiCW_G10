@@ -2,9 +2,6 @@ const express = require('express');
 const User = require('../models/userModel');
 const router = express.Router();
 router.use(express.json());
-//const verifyToken = require ('../utils/verifyToken');
-
-
 
 
 //UPDATE
@@ -77,8 +74,5 @@ router.get('/', async (req, res, next) => {
     }
 })
 
-// router.get('/checkauthentication', verifyToken, (req, res,next) => {
-//     res.send('Hello user, you are authenticated')
-// })
 
 module.exports = router;

@@ -1,6 +1,6 @@
 import "./searchItem.css";
 
-const SearchItem = ({item}) => {
+const SearchItem = ({ item }) => {
   return (
     <div className="searchItem">
       <img
@@ -21,13 +21,13 @@ const SearchItem = ({item}) => {
         </span>
       </div>
       <div className="siDetails">
-        
+
         <div className="siDetailTexts">
           <span className="siPrice">LKR {item.cheapestPrice}</span>
           <span className="siTaxOp">Includes taxes and fees</span>
-          
+
           <button className="siCheckButton">Book Now</button>
-          
+
         </div>
       </div>
     </div>

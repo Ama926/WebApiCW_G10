@@ -11,15 +11,13 @@ const Home = () => {
   return (
     <div>
       <Navbar />
-      <Header/>
+      <Header />
       <div className="homeContainer">
-        <Featured/>
+        <Featured />
         <h1 className="homeTitle">Browse by Airline</h1>
-        <PropertyList/>
-        
-        
-        <MailList/>
-        
+        <PropertyList />
+        <MailList />
+
       </div>
     </div>
   );

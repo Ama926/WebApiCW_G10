@@ -20,19 +20,19 @@ const Header = ({ type }) => {
   const [departure, setDeparture] = useState("");
   const [openDate, setOpenDate] = useState(false);
   const [date, setDate] = useState([
-  
+
     {
       startDate: new Date(),
-      
+
       key: "selection",
     },
   ]);
   const [seatCount, setseatCount] = useState("");
-  
+
 
   const navigate = useNavigate();
 
- 
+
 
   const handleSearch = () => {
     navigate("/flight", { state: { departure, destination, date, seatCount } });
@@ -46,12 +46,12 @@ const Header = ({ type }) => {
         }
       >
         <div className="headerList">
-          
+
           <div className="headerListItem">
             <FontAwesomeIcon icon={faPlane} />
             <span>Flights</span>
           </div>
-          
+
         </div>
         {type !== "list" && (
           <>
@@ -61,7 +61,7 @@ const Header = ({ type }) => {
             <p className="headerDesc">
               Search and filter flights as customer preferes.
             </p>
-            
+
             <div className="headerSearch">
               <div className="headerSearchItem">
                 <FontAwesomeIcon icon={faPlane} className="headerIcon" />
@@ -101,7 +101,7 @@ const Header = ({ type }) => {
               </div>
               <div className="headerSearchItem">
                 <FontAwesomeIcon icon={faPerson} className="headerIcon" />
-                
+
                 <input
                   type="text"
                   placeholder="Person count"
@@ -114,9 +114,9 @@ const Header = ({ type }) => {
                   Search
                 </button>
               </div>
-              </div>
-              
-            
+            </div>
+
+
           </>
         )}
       </div>

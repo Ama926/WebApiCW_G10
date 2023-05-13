@@ -1,21 +1,21 @@
 const express = require('express');
 const router = express.Router();
-const Flight = require ('../models/flightModel');
-const Seat = require ('../models/seatModel');
+const Flight = require('../models/flightModel');
+const Seat = require('../models/seatModel');
 
 const app = express()
 
 //CREATE
-router.post('/:flightid', async (req, res,next) => {
+router.post('/:flightid', async (req, res, next) => {
 
     const flightId = req.params.flightid;
-    
+
     try {
         const newSeat = new Seat(req.body);
         const savedSeat = await newSeat.save();
         try {
             await Flight.findByIdAndUpdate(flightId, {
-                $push : {seats:savedSeat._id},
+                $push: { seats: savedSeat._id },
             });
         } catch (err) {
             next(err)
@@ -43,7 +43,7 @@ router.put('/:id', async (req, res) => {
 })
 
 //DELETE
-router.delete('/:id/:flightid', async (req, res,next) => {
+router.delete('/:id/:flightid', async (req, res, next) => {
 
     const flightId = req.params.flightid;
     try {
@@ -51,7 +51,7 @@ router.delete('/:id/:flightid', async (req, res,next) => {
         const seat = await Seat.findByIdAndDelete(id);
         try {
             await Flight.findByIdAndUpdate(flightId, {
-                $pull : {seats:req.params.id},
+                $pull: { seats: req.params.id },
             });
         } catch (err) {
             next(err)
@@ -67,13 +67,13 @@ router.delete('/:id/:flightid', async (req, res,next) => {
 })
 
 //GET
-router.get('/:id', async (req, res,next) => {
+router.get('/:id', async (req, res, next) => {
     const failed = true
     const err = new Error()
-   
+
     if (failed) {
         err.status = 404;
-        err.message ="Sorry not found!";
+        err.message = "Sorry not found!";
         return next(err)
     }
 
@@ -88,12 +88,12 @@ router.get('/:id', async (req, res,next) => {
 })
 
 //GET ALL
-router.get('/', async (req, res,next) => {
+router.get('/', async (req, res, next) => {
 
     const failed = true
     const err = new Error()
     err.status = 404;
-    err.message ='Sorry not found!';
+    err.message = 'Sorry not found!';
     if (failed) return next(err)
 
     try {
