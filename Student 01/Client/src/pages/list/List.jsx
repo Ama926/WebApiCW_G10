@@ -2,6 +2,7 @@ import "./list.css";
 import useFetch from "../../hooks/useFetch";
 import Navbar from "../../components/navbar/Navbar";
 import Header from "../../components/header/Header";
+
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import { format } from "date-fns";
@@ -21,13 +22,11 @@ const List = ({type}) => {
   const [openDate, setOpenDate] = useState(false);
   const navigate = useNavigate();
 
-  const handleSearch = () => {
-    navigate("/flight", { state: { departure, destination, seatCount, max } });
-  };
+  
 
   const { data, loading, refetch } = useFetch(`http://localhost:8000/api/flights?arrivalCity=${destination}&departureCity=${departure}`);
   const {  error, reFetch } = useFetch(
-    `http://localhost:8000/api/flight?arrivalCity=${destination}&min=${min || 0 }&max=${max}`
+    `http://localhost:8000/api/flights?arrivalCity=${destination}&min=${min || 0 }&max=${max || 100000 }`
   );
   const handleClick = () => {
     reFetch();
